@@ -1,0 +1,30 @@
+<p style="color: green"><%= notice %></p>
+
+<h1>Products</h1>
+<%= turbo_frame_tag "products" do %>
+  <div id="products">
+    <table>
+      <thead>
+        <tr>
+          <%= sortable_table_header 'ID', :id, :products_path, class: 'invoices__row--header' %>
+          <%= sortable_table_header 'Name', :name, :products_path, class: 'invoices__row--header' %>
+          <%= sortable_table_header 'Price', :price, :products_path, class: 'invoices__row--header' %>
+          <%= sortable_table_header 'Created At', :created_at, :products_path, class: 'invoices__row--header' %>
+        </tr>
+      </thead>
+      <tbody>
+        <% @products.each do |product| %>
+          <tr>
+            <td><%= product.id %></td>
+            <td><%= product.name %></td>
+            <td><%= number_to_currency(product.price) %></td>
+
+            <td><%= product.created_at.strftime('%m/%d/%Y') %></td>
+            <td><%= link_to "Show this product", product %></td>
+          </tr>
+        <% end %>
+      </tbody>
+    </table>
+  </div>
+<% end %>
+<%= link_to "New product", new_product_path %>
